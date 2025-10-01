@@ -1,10 +1,10 @@
 import Post from "./components/Post";
 
 function App() {
-  return <div>
-    <h1>Hello World!</h1>
-    <Post></Post>
-  </div>
+  return <main>
+    <Post author="Nitheesh" content="Have a nice day" />
+    <Post author="Devi" content="Have a nice day too!!" />
+  </main>
 }
 
 export default App;
