@@ -1,16 +1,27 @@
+import { useState } from "react";
 import classes from "./NewPost.module.css";
 
-function NewPost({body, onBodyChange, author, onAuthorChange, onCancel}) {
+function NewPost({onCancel, onNewPostCreated}) {
+  
+  const [enteredBody, setEnteredBody] = useState("");
+  const [enteredAuthor, setEnteredAuthor] = useState("");
+
+  const onNewPostAdded = (event) => {
+    event.preventDefault()
+    if(enteredBody && enteredAuthor) {
+      onNewPostCreated(enteredBody, enteredAuthor)
+    }
+  }
   return (
-    <form className={classes.form}>
+    <form className={classes.form} onSubmit={onNewPostAdded}>
       <p>
         <label htmlFor="boby">Text</label>
         <textarea
           id="body"
-          value={body}
+          value={enteredBody}
           required
           rows={3}
-          onChange={(e) => onBodyChange(e.target.value)}
+          onChange={(e) => setEnteredBody(e.target.value)}
         ></textarea>
       </p>
       <p>
@@ -18,9 +29,9 @@ function NewPost({body, onBodyChange, author, onAuthorChange, onCancel}) {
         <input
           type="text"
           id="name"
-          requiredenteredBody 
-          value={author}
-          onChange={(e) => onAuthorChange(e.target.value)}
+          required 
+          value={enteredAuthor}
+          onChange={(e) => setEnteredAuthor(e.target.value)}
         />
       </p>
       <p className={classes.actions}>

@@ -1,41 +1,38 @@
-import { useState } from "react";
 import NewPost from "../NewPost/NewPost";
 import Modal from "../Modal/Modal";
 import Post from "../Post/Post";
 import classes from "./PostList.module.css";
+import { useState } from "react";
 
 function PostList({ isModalVisible, setisModalVisible }) {
-  const [enteredBody, setEnteredBody] = useState("");
-  const [enteredAuthor, setEnteredAuthor] = useState("");
+  const [postList, setPostList] = useState([]);
 
-  const onModalCancelled = () => {
-    setEnteredBody("")
-    setEnteredAuthor("")
-    setisModalVisible(false)
-  }
+  const handleNewPostCreation = (body, author) => {
+    setPostList((existingPosts) => [{ body, author }, ...existingPosts]);
+    setisModalVisible(false);
+  };
 
   let modalContent = isModalVisible && (
     <Modal closeModal={() => setisModalVisible(false)}>
       <NewPost
-        body={enteredBody}
-        onBodyChange={setEnteredBody}
-        author={enteredAuthor}
-        onAuthorChange={setEnteredAuthor}
-        onCancel={onModalCancelled}
+        onCancel={() => setisModalVisible(false)}
+        onNewPostCreated={handleNewPostCreation}
       />
     </Modal>
   );
   return (
     <>
       {modalContent}
-      <ul className={classes.postList}>
-        <li>
-          <Post author={enteredAuthor} content={enteredBody} />
-        </li>
-        <li>
-          <Post author="Nitheesh" content="Have a nice day" />
-        </li>
-      </ul>
+      {postList.length > 0 && (
+        <ul className={classes.postList}>
+          {postList.map((post, index) => (
+            <li key={`post-${index}`}>
+              <Post author={post.author} content={post.body} />
+            </li>
+          ))}
+        </ul>
+      )}
+      {postList.length === 0 && <h1>Oops!! no post created</h1>}
     </>
   );
 }
