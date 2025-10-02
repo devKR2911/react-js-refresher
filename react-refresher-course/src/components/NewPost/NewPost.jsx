@@ -1,24 +1,28 @@
-import { useState } from "react";
 import classes from "./NewPost.module.css";
 
-function NewPost() {
-  const [text, setText] = useState("");
+function NewPost(props) {
   return (
     <form className={classes.form}>
       <p>
         <label htmlFor="boby">Text</label>
         <textarea
           id="body"
-          value={text}
+          value={props.body}
           required
           rows={3}
-          onChange={(e) => setText(e.target.value)}
+          onChange={(e) => props.onBodyChange(e.target.value)}
         ></textarea>
-        <p>{text}</p>
+        <p>{props.body}</p>
       </p>
       <p>
         <label htmlFor="name">Your Name</label>
-        <input type="text" id="name" required />
+        <input
+          type="text"
+          id="name"
+          required
+          value={props.author}
+          onChange={(e) => props.onAuthorChange(e.target.value)}
+        />
       </p>
     </form>
   );
