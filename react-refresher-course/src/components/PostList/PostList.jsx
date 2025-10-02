@@ -8,6 +8,12 @@ function PostList({ isModalVisible, setisModalVisible }) {
   const [enteredBody, setEnteredBody] = useState("");
   const [enteredAuthor, setEnteredAuthor] = useState("");
 
+  const onModalCancelled = () => {
+    setEnteredBody("")
+    setEnteredAuthor("")
+    setisModalVisible(false)
+  }
+
   let modalContent = isModalVisible && (
     <Modal closeModal={() => setisModalVisible(false)}>
       <NewPost
@@ -15,15 +21,13 @@ function PostList({ isModalVisible, setisModalVisible }) {
         onBodyChange={setEnteredBody}
         author={enteredAuthor}
         onAuthorChange={setEnteredAuthor}
+        onCancel={onModalCancelled}
       />
     </Modal>
   );
   return (
     <>
       {modalContent}
-
-      <p>enteredBody = {enteredBody}</p>
-      <p>enteredAuthor = {enteredAuthor}</p>
       <ul className={classes.postList}>
         <li>
           <Post author={enteredAuthor} content={enteredBody} />
