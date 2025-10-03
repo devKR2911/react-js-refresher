@@ -7,6 +7,9 @@ import NewPost, {
   action as newPostFormAction,
 } from "./routes/NewPost/NewPost.jsx";
 import RootLayout from "./routes/RootLayout/RootLayout.jsx";
+import PostDetails, {
+  loader as postDetailsLoader,
+} from "./routes/PostDetails/PostDetails.jsx";
 
 const router = createBrowserRouter([
   {
@@ -22,6 +25,11 @@ const router = createBrowserRouter([
             path: "/new-post",
             element: <NewPost />,
             action: newPostFormAction,
+          },
+          {
+            path: "/:id",
+            element: <PostDetails />,
+            loader: postDetailsLoader,
           },
         ],
       },

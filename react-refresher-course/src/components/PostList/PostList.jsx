@@ -10,9 +10,12 @@ function PostList() {
       {postList.length > 0 && (
         <ul className={classes.postList}>
           {postList.map((post, index) => (
-            <li key={`post-${index}`}>
-              <Post author={post.author} content={post.body} />
-            </li>
+            <Post
+              key={`post-${index}`}
+              id={post.id}
+              author={post.author}
+              content={post.body}
+            />
           ))}
         </ul>
       )}
